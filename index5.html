@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Magnetism Exam | Compiled Questions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(145deg, #eef2f9 0%, #dce5f0 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            color: #0a2f44;
+        }
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: 8B0000;
+            border-radius: 2rem;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.1);
+            padding: 1.8rem 2rem 2.2rem;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0b2b44, #1f6392);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.2rem;
+        }
+        .sub {
+            color: #2c5a7a;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 3px solid #1f6392;
+            display: inline-block;
+            color: #0a4a6e;
+        }
+        .question-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2edf7;
+        }
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0a2f44;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: #f9fbfe;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid #e0ecf5;
+            cursor: pointer;
+        }
+        .option:hover {
+            background: #eef3fc;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            accent-color: #1f6392;
+            width: 1rem;
+            height: 1rem;
+        }
+        .tf-options {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .tf-btn {
+            background: #f4f8fe;
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            border: 1px solid #cfdfed;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tf-btn.selected {
+            background: #d0e6f5;
+            border-color: #1f6392;
+        }
+        .feedback {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            display: none;
+        }
+        .feedback.correct {
+            background: #d9f0e1;
+            color: #0f5429;
+            border-left: 4px solid #2e7d32;
+            display: block;
+        }
+        .feedback.wrong {
+            background: #fee9e6;
+            color: #b13e3e;
+            border-left: 4px solid #c62828;
+            display: block;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+        }
+        button {
+            background: #1f6392;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            font-weight: 600;
+            border-radius: 3rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #0a4a70;
+            transform: scale(0.97);
+        }
+        .reset-btn {
+            background: #4b6f86;
+        }
+        .score-area {
+            background: #0b2b44;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #5f7f9a;
+        }
+        @media (max-width: 650px) {
+            .main-container { padding: 1rem; }
+            .question-text { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <h1>🧲 Magnetism Exam Compilation</h1>
+    <div class="sub">All magnetic questions from Final 2022, 2023, 2024, 2025 (without answers initially)</div>
+    <div class="score-area" id="globalScore">📊 Score: -- / --</div>
+
+    <div id="questionsContainer"></div>
+
+    <div class="btn-group">
+        <button id="checkBtn">✅ Check All Answers</button>
+        <button id="resetBtn" class="reset-btn">⟳ Reset All</button>
+    </div>
+    <footer>Prof. Mohamed Abdel-Rahman · Biot-Savart, Ampere, Faraday, magnetic dipoles, solenoids, velocity selector, etc.</footer>
+</div>
+
+<script>
+    // ---------- All magnetism questions (no answers shown) ----------
+    // Each question: type "mcq" or "tf", text, options (for mcq), correct index (0-based) for mcq, correct boolean for tf
+    // We will store answers separately.
+
+    const questionsData = [
+        // === From Final 2022 (True/False) ===
+        { type: "tf", text: "The SI unit of magnetic field or magnetic flux density (B) is given in unit of Weber (Wb) while the SI unit of magnetic flux is called Tesla (T).", correct: false },
+        { type: "tf", text: "The magnetization is zero at the middle of the magnet and maximum at the poles.", correct: true },
+        { type: "tf", text: "Gauss's law for magnetism states that: the total magnetic flux through a closed surface is always one.", correct: false },
+        { type: "tf", text: "Magnetic field B is sometimes called the magnetic flux density.", correct: true },
+        { type: "tf", text: "The magnetic force on a wire carrying current is given by: F = qv × E = I(L × E).", correct: false },
+        { type: "tf", text: "An electric field and magnetic field normal to each other and act on a moving electron to produce no net force. If E = 4.0 kV/m and B = 2.0 mT, the electron speed is 5×10⁵ m/s.", correct: false },
+        { type: "tf", text: "A proton with a velocity of 6.0×10⁶ m/s travels at right angles to a magnetic field of 0.5 Tesla. The frequency of the proton's orbit is 7.62×10⁶ Hz.", correct: true },
+        { type: "tf", text: "The torque τ on the magnetic dipole and the potential energy U are given by: τ = M·B, U = M×B.", correct: false },
+        { type: "tf", text: "The total moving charge dQ in a short segment dl of a current-carrying conductor is dQ = nq dl.", correct: false },
+        { type: "tf", text: "The total magnetic field caused by several moving charges is the field caused by the only one charge.", correct: false },
+        { type: "tf", text: "Biot and Savart law is given by: dB = (μ₀/4π)·(I dl sinθ / r²).", correct: true },
+        { type: "tf", text: "The magnetic field of a long straight current-carrying conductor is given by: B = μ₀ I / (4π r).", correct: false },
+        { type: "tf", text: "Varying the current in a second coil will never induce a current in another coil that lies in its field.", correct: false },
+        { type: "tf", text: "The magnetic moment associated with an atom is due to the orbital and spin motions of protons.", correct: false },
+        { type: "tf", text: "When electrons are paired together, their opposite spins cause their magnetic fields to get stronger.", correct: false },
+        { type: "tf", text: "Paramagnetic and ferromagnetic materials have small and negative susceptibility.", correct: false },
+        { type: "tf", text: "Paramagnetic materials have strong magnetic properties due to the presence of magnetic domains.", correct: false },
+        
+        // === From Final 2023 (MCQ + TF) ===
+        { type: "mcq", text: "The magnetization is ........... at the poles and ........... at the middle.", options: ["zero, maximum", "maximum, zero", "maximum, one"], correct: 1 },
+        { type: "mcq", text: "...... for magnetism: the line integral of B around any closed path equals μ₀ times the net current.", options: ["Ampere's Law", "Coulomb's Law", "Gauss's Law"], correct: 0 },
+        { type: "mcq", text: "The induced ........... in closed loop is the negative time rate of change of magnetic flux.", options: ["current", "emf", "mass"], correct: 1 },
+        { type: "mcq", text: "...... materials have strong magnetic properties due to magnetic domains.", options: ["Paramagnetic", "Diamagnetic", "Ferromagnetic"], correct: 2 },
+        { type: "tf", text: "The SI unit of magnetic field is called weber (Wb) and 1 Wb = 1 T·m².", correct: false },
+        { type: "tf", text: "Magnetic field B is sometimes called the magnetic field intensity.", correct: false },
+        { type: "tf", text: "Gauss's law for magnetism: total magnetic flux through a closed surface is always one.", correct: false },
+        { type: "tf", text: "The magnetic force on a wire carrying current: F = qv × E = I(L × E).", correct: false },
+        { type: "tf", text: "If E = 4.0 kV/m ⊥ B = 2.0 mT, for a moving electron with no net force: v = E/B = 2×10⁶ m/s.", correct: true },
+        { type: "tf", text: "Biot-Savart: dB = (μ₀/2π)(I dl sinθ / r²) and B = μ₀/(4π) for a long straight wire.", correct: false },
+        { type: "tf", text: "Parallel conductors carrying currents in opposite directions attract each other.", correct: false },
+        { type: "tf", text: "Varying the current in a second coil will never induce a current in another coil in its field.", correct: false },
+        { type: "tf", text: "The induced emf in closed loop is the negative time rate of change of magnetic flux density through the loop.", correct: false },
+        { type: "tf", text: "Paramagnetic and ferromagnetic materials have small and negative susceptibility.", correct: false },
+        
+        // === From Final 2024 (True/False) ===
+        { type: "tf", text: "The magnetization is maximum at the middle of the magnet and zero at the poles.", correct: false },
+        { type: "tf", text: "The SI unit of magnetic field is Tesla (T) and that of magnetic flux is Weber (Wb), and 1 Wb = 1 T·m².", correct: true },
+        { type: "tf", text: "In crossed E and B fields perpendicular to velocity v, forces cancel when v = E/B.", correct: true },
+        { type: "tf", text: "The magnetic force on a wire carrying current: F = qv × E = I(L × E).", correct: false },
+        { type: "tf", text: "E = 4.0 kV/m ⊥ B = 2.0 mT; moving electron with no net force has speed 2×10⁶ m/s.", correct: true },
+        { type: "tf", text: "A proton at 6.0×10⁶ m/s ⊥ to B = 0.5 T. Frequency = 7.62×10⁶ Hz.", correct: true },
+        { type: "tf", text: "The torque τ = M·B and potential energy U = M×B on a magnetic dipole.", correct: false },
+        { type: "tf", text: "Biot-Savart law: dB = (μ₀/4π) (I dl sinθ / r²).", correct: true },
+        { type: "tf", text: "Magnetic field of a long straight current-carrying conductor: B = μ₀ I / (4π).", correct: false },
+        { type: "tf", text: "There is an isolated magnetic charge or magnetic monopole.", correct: false },
+        { type: "tf", text: "Ampere's Law: line integral of B around any closed path equals μ₀ times the net potential through the area.", correct: false },
+        { type: "tf", text: "The magnitude of a motional emf is ε = v B L.", correct: true },
+        
+        // === From Final 2025 (MCQ + TF) ===
+        { type: "mcq", text: "SI unit for the magnetic field:", options: ["Tesla (T)", "Newton (N)", "Farad (F)", "Micro Farad"], correct: 0 },
+        { type: "mcq", text: "Angular frequency of a charged particle in a uniform magnetic field depends on:", options: ["Field strength and particle's mass and charge", "Only the speed", "Only the direction of B", "The distance travelled"], correct: 0 },
+        { type: "tf", text: "The angular frequency of a charged particle in a magnetic field increases if B increases.", correct: true }
+    ];
+
+    // Store user answers: for mcq -> index (0..), for tf -> boolean true/false
+    let userAnswers = new Array(questionsData.length).fill(null);
+    let evaluated = false;
+    let correctStatus = new Array(questionsData.length).fill(false);
+
+    const container = document.getElementById('questionsContainer');
+    const scoreSpan = document.getElementById('globalScore');
+    const checkBtn = document.getElementById('checkBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function updateStats() {
+        const answered = userAnswers.filter(a => a !== null).length;
+        if (evaluated) {
+            const correctCount = correctStatus.filter(c => c === true).length;
+            scoreSpan.innerHTML = `📊 Score: ${correctCount} / ${questionsData.length}`;
+        } else {
+            scoreSpan.innerHTML = `📊 Score: -- / ${questionsData.length} (Answered: ${answered})`;
+        }
+    }
+
+    function evaluateAll() {
+        let correctCount = 0;
+        for (let i = 0; i < questionsData.length; i++) {
+            const q = questionsData[i];
+            const ans = userAnswers[i];
+            if (ans === null) {
+                correctStatus[i] = false;
+                continue;
+            }
+            let isCorrect = false;
+            if (q.type === 'mcq') {
+                isCorrect = (ans === q.correct);
+            } else { // tf
+                isCorrect = (ans === q.correct);
+            }
+            correctStatus[i] = isCorrect;
+            if (isCorrect) correctCount++;
+        }
+        evaluated = true;
+        renderQuestions(); // re-render to show feedback
+        updateStats();
+    }
+
+    function resetAll() {
+        userAnswers.fill(null);
+        correctStatus.fill(false);
+        evaluated = false;
+        renderQuestions();
+        updateStats();
+    }
+
+    function renderQuestions() {
+        container.innerHTML = '';
+        questionsData.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerText = `${idx+1}. ${q.text}`;
+            card.appendChild(qText);
+
+            if (q.type === 'mcq') {
+                const optsDiv = document.createElement('div');
+                optsDiv.className = 'options-grid';
+                q.options.forEach((opt, optIdx) => {
+                    const label = document.createElement('label');
+                    label.className = 'option';
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `mcq${idx}`;
+                    radio.value = optIdx;
+                    if (userAnswers[idx] === optIdx) radio.checked = true;
+                    radio.addEventListener('change', () => {
+                        if (radio.checked) {
+                            userAnswers[idx] = optIdx;
+                            if (evaluated) evaluated = false;
+                            renderQuestions(); // re-render without feedback first
+                            updateStats();
+                        }
+                    });
+                    const span = document.createElement('span');
+                    span.innerText = `${String.fromCharCode(97+optIdx)}) ${opt}`;
+                    label.appendChild(radio);
+                    label.appendChild(span);
+                    optsDiv.appendChild(label);
+                });
+                card.appendChild(optsDiv);
+            } else { // tf
+                const tfDiv = document.createElement('div');
+                tfDiv.className = 'tf-options';
+                const trueBtn = document.createElement('div');
+                trueBtn.className = `tf-btn ${userAnswers[idx] === true ? 'selected' : ''}`;
+                const trueRadio = document.createElement('input');
+                trueRadio.type = 'radio';
+                trueRadio.name = `tf${idx}`;
+                trueRadio.value = 'true';
+                if (userAnswers[idx] === true) trueRadio.checked = true;
+                trueRadio.addEventListener('change', () => {
+                    if (trueRadio.checked) {
+                        userAnswers[idx] = true;
+                        if (evaluated) evaluated = false;
+                        renderQuestions();
+                        updateStats();
+                    }
+                });
+                const trueLabel = document.createElement('label');
+                trueLabel.innerText = 'True';
+                trueBtn.appendChild(trueRadio);
+                trueBtn.appendChild(trueLabel);
+                
+                const falseBtn = document.createElement('div');
+                falseBtn.className = `tf-btn ${userAnswers[idx] === false ? 'selected' : ''}`;
+                const falseRadio = document.createElement('input');
+                falseRadio.type = 'radio';
+                falseRadio.name = `tf${idx}`;
+                falseRadio.value = 'false';
+                if (userAnswers[idx] === false) falseRadio.checked = true;
+                falseRadio.addEventListener('change', () => {
+                    if (falseRadio.checked) {
+                        userAnswers[idx] = false;
+                        if (evaluated) evaluated = false;
+                        renderQuestions();
+                        updateStats();
+                    }
+                });
+                const falseLabel = document.createElement('label');
+                falseLabel.innerText = 'False';
+                falseBtn.appendChild(falseRadio);
+                falseBtn.appendChild(falseLabel);
+                
+                tfDiv.appendChild(trueBtn);
+                tfDiv.appendChild(falseBtn);
+                card.appendChild(tfDiv);
+            }
+
+            // Feedback area
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.className = 'feedback';
+            if (evaluated && userAnswers[idx] !== null) {
+                const isCor = correctStatus[idx];
+                const correctAnswer = q.type === 'mcq' ? q.options[q.correct] : (q.correct ? 'True' : 'False');
+                let explanation = '';
+                if (q.type === 'mcq') {
+                    explanation = `Correct answer: ${correctAnswer}.`;
+                } else {
+                    explanation = `Correct answer: ${correctAnswer}.`;
+                }
+                feedbackDiv.classList.add(isCor ? 'correct' : 'wrong');
+                feedbackDiv.innerHTML = isCor ? `✅ Correct. ${explanation}` : `❌ Wrong. ${explanation}`;
+                feedbackDiv.style.display = 'block';
+            }
+            card.appendChild(feedbackDiv);
+            container.appendChild(card);
+        });
+        updateStats();
+    }
+
+    checkBtn.addEventListener('click', () => {
+        const anyAnswered = userAnswers.some(a => a !== null);
+        if (!anyAnswered) {
+            alert("Please answer at least one question before checking.");
+            return;
+        }
+        evaluateAll();
+    });
+    resetBtn.addEventListener('click', resetAll);
+    renderQuestions();
+</script>
+</body>
+</html>
